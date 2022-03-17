@@ -4,7 +4,9 @@ let temizlikUrunleri={"deterjan":50,"sabun":10,"çamaşır suyu":5};
 
 //document.querySelectorAll("kategori")[0].addEventListener("change",urunleriGetir);
 
+
 function urunleriGetir(){
+    //döngü
     for(let i=0;i<sutUrunleri.length;i=i+2)
     {
         let urunAciklama=document.createElement("label");
