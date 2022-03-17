@@ -4,6 +4,7 @@ let temizlikUrunleri={"deterjan":50,"sabun":10,"çamaşır suyu":5};
 
 //document.querySelectorAll("kategori")[0].addEventListener("change",urunleriGetir);
 
+console.log(sutUrunleri.length)
 
 function urunleriGetir(){
     //döngü
