@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Market Sepeti</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
-<body onload="urunleriGetir()">
+<body>
     <h3>Market Sepeti</h3>
     <form action="#" id="market">
         <label for="kategori">Ürün kategorileri:</label>
         <label for="kategoriSut">Süt ve süt ürünleri</label>
-        <input type="radio" name="kategori" id="kategoriSut" checked>
+        <input type="radio" name="kategori" id="kategoriSut">
         <label for="kategoriGida">Temel gıda ürünleri</label>
         <input type="radio" name="kategori" id="kategoriGida">
         <label for="kategoriTemizlik">Temizlik ürünleri</label>
@@ -20,13 +21,12 @@
         <br>
         <div id="urunPanel">
             <label for="urunler">Ürün seçimi yapınız:</label>
-            
         </div>
         <br>
         <label for="adet">Adet seçimi yapınız:</label>
         <input type="number" name="adet" id="urunAdet">
         <br>
-        <input type="button" value="Sepete Ekle" id="btnEkle">
+        <input type="button" value="Sepete Ekle" id="btnEkle" onclick="sepeteEkle()">
         <br>
         <select name="sepet" id="sepetMarket" size="10">
             <option value="0">Seçtiğiniz ürünler</option>
