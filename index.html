@@ -24,14 +24,14 @@
         </div>
         <br>
         <label for="adet">Adet seçimi yapınız:</label>
-        <input type="number" name="adet" id="urunAdet">
+        <input type="number" name="adet" id="urunAdet" value="1" min="1">
         <br>
         <input type="button" value="Sepete Ekle" id="btnEkle" onclick="sepeteEkle()">
         <br>
         <select name="sepet" id="sepetMarket" size="10">
             <option value="0">Seçtiğiniz ürünler</option>
         </select>
-        <button id="btnCikar">Sepetten Çıkar</button>
+        <input type="button" value="Sepetten Çıkar" id="btnCikar" onclick="sepettenCikar()">
         <h4 id="sepetTutar"></h4>
         <label for="indirim">İndirim kodu:</label>
         <input type="text" name="indirim" id="txtIndirim">

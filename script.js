@@ -4,11 +4,13 @@ let temizlikUrunleri=["deterjan","50","sabun","10","çamaşır suyu","5"];
 let i;
 let urunAciklama,urunSecenek;
 let eklenecekler=[];
+let listeSepet=document.getElementById("sepetMarket");
+
 
 for(i=0;i<document.getElementsByName("kategori").length;i++)
 {
     document.getElementsByName("kategori")[i].addEventListener("change",urunleriGetir);
-}
+}   
 
 
 
@@ -58,7 +60,7 @@ function urunleriGetir(){
     const listeUrunlerFiyat=document.getElementsByName("urunler");
     const listeUrunlerAd=document.getElementsByClassName("urunler");
     
-
+    
     document.addEventListener("change",()=>{
         let urunFiyat=0;
         eklenecekler=[];
@@ -77,15 +79,23 @@ function urunleriGetir(){
 }
 
 function sepeteEkle(){
-    const listeSepet=document.getElementById("sepetMarket");
-    document.querySelectorAll('#sepetMarket option').forEach(option => option.remove());
+    let adet=document.getElementById("urunAdet").value;
+    console.log(adet);
+    document.querySelectorAll('#sepetMarket option').forEach(eleman => eleman.remove());
 
-    eklenecekler.forEach(element => {
-        const urunSepet=document.createElement("option");
-        listeSepet.options.add(urunSepet);
-        urunSepet.text=element;
-    });
+    for(i=0;i<adet;i++)
+    {
+        eklenecekler.forEach(element => {
+            const urunSepet=document.createElement("option");
+            listeSepet.options.add(urunSepet);
+            urunSepet.text=element;
+        });
+    }
+}
 
+function sepettenCikar(){
+    console.log(listeSepet.selectedIndex);
+    listeSepet.options.remove(listeSepet.selectedIndex);
 }
 
 
