@@ -6,13 +6,10 @@ let urunAciklama,urunSecenek;
 let eklenecekler=[];
 let listeSepet=document.getElementById("sepetMarket");
 
-
 for(i=0;i<document.getElementsByName("kategori").length;i++)
 {
     document.getElementsByName("kategori")[i].addEventListener("change",urunleriGetir);
 }   
-
-
 
 function olustur(){
     urunAciklama=document.createElement("label");
@@ -24,6 +21,7 @@ function olustur(){
     urunAciklama.setAttribute("for","urunler");
     urunAciklama.setAttribute("class","urunler");
 }
+
 function urunleriGetir(){
     const silinecekler = document.getElementById("urunPanel");
     while (silinecekler.hasChildNodes()) {
@@ -60,7 +58,6 @@ function urunleriGetir(){
     const listeUrunlerFiyat=document.getElementsByName("urunler");
     const listeUrunlerAd=document.getElementsByClassName("urunler");
     
-    
     document.addEventListener("change",()=>{
         let urunFiyat=0;
         eklenecekler=[];
@@ -74,14 +71,11 @@ function urunleriGetir(){
         console.log(eklenecekler);
     }
     );
-    
-    
 }
 
 function sepeteEkle(){
     let adet=document.getElementById("urunAdet").value;
     console.log(adet);
-    document.querySelectorAll('#sepetMarket option').forEach(eleman => eleman.remove());
 
     for(i=0;i<adet;i++)
     {
@@ -96,6 +90,10 @@ function sepeteEkle(){
 function sepettenCikar(){
     console.log(listeSepet.selectedIndex);
     listeSepet.options.remove(listeSepet.selectedIndex);
+}
+
+function sepetiBosalt(){
+    document.querySelectorAll('#sepetMarket option').forEach(eleman => eleman.remove());
 }
 
 
