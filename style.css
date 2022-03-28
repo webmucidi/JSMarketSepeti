@@ -12,9 +12,7 @@ body{
     min-height: 100vh;
     gap: 1rem;
     background: url(/market.webp) no-repeat center center/cover;
-
 }
-
 form#market{
     display: grid;
     gap: 0.4rem;
@@ -34,7 +32,6 @@ form > label:nth-child(2){
     display: flex;
     align-items: center;
 }
-
 form #urunPanel{
     grid-column: 2/4;
     grid-row: 5/6;
@@ -61,7 +58,6 @@ form #sepetTutar{
     grid-column: 2/3;
     color: red;
 }
-
 .formBaslik{
     grid-column: 1/4;
     font-size: 2rem;
