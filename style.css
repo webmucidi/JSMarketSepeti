@@ -73,3 +73,6 @@ form #sepetTutar{
 .aciklama{
     font-weight: bold;
 }
+#sonuc{
+    grid-column: 1/4;
+}

@@ -112,6 +112,7 @@ function sepeteEkle(){
         for(i=0;i<eklenecekler.length;i++){
             sepeteEklenecekUrun=document.createElement("option");
             listeSepet.options.add(sepeteEklenecekUrun);
+            //Her eklenen ürün için ad ve fiyat bilgilerini ilgili dizilerden çeker.
             sepeteEklenecekUrun.text=eklenecekler[i];
             sepeteEklenecekUrun.value=fiyatlar[i];
         }
@@ -136,6 +137,7 @@ function sepettenCikar(){
     let seciliIndeks=listeSepet.selectedIndex;
     let silinecekUrununFiyati=listeSepet.options[seciliIndeks].value;
     listeSepet.options.remove(seciliIndeks);
+    //Silinen ürünün fiyatını toplam fiyattan düşürür.
     toplamTutar=toplamTutar-silinecekUrununFiyati;
     document.getElementById("sepetTutar").innerHTML=toplamTutar+" TL";
 }
@@ -148,13 +150,23 @@ function sepetiBosalt(){
 
 }
 
+//İndirim kodunu kontrol ederek indirim uygulama
 function koduEkle(){
     let girilenKod=document.getElementById("txtIndirim").value;
     if(girilenKod == kod)
     {
-        toplamTutar=toplamTutar-10;
-        document.getElementById("sepetTutar").innerHTML=toplamTutar+" TL";
-        document.getElementById("sonuc").innerHTML="İndirim uygulandı.";
+        if(toplamTutar>=50)
+        {
+            toplamTutar=toplamTutar-10;
+            
+            document.getElementById("sepetTutar").innerHTML=toplamTutar+" TL";
+            document.getElementById("sonuc").innerHTML="İndirim uygulandı.";
+            document.getElementById("txtIndirim").disabled=true;
+            document.getElementById("txtIndirim").value="";
+        }
+        else{
+            document.getElementById("sonuc").innerHTML="Girdiğiniz kod için minimum sepet tutarı 50 TL olmalıdır!";
+        }
     }
     else{
         document.getElementById("sonuc").innerHTML="Geçerli bir kod girmediniz!";
