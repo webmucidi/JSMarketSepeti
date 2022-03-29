@@ -82,7 +82,10 @@ function sepeteEkle(){
     //Sepete eklenecek ürünleri alacağımız checkbox inputlar alındı.
     const listeUrunlerFiyat=document.getElementsByName("urunler");
     const listeUrunlerAd=document.getElementsByClassName("urunler");
-    
+
+    //Eklenecek ürün adedi seçimi
+    let adet=document.getElementById("urunAdet").value;
+
     //Eklenecekler ve fiyatlar dizileri her ekleme sırasında sıfırlandı.
         eklenecekler=[];
         fiyatlar=[];
@@ -90,7 +93,8 @@ function sepeteEkle(){
         //Checkbox inputlarının hepsi gezilerek seçili olanlar dizilere eklendi.
         for(i=0;i<listeUrunlerFiyat.length;i++){
             if(listeUrunlerFiyat[i].checked){
-                toplamTutar+=Number(listeUrunlerFiyat[i].value);
+                //Eklenen adet kadar ürünün fiyatı hesaplandı.
+                toplamTutar+=(Number(listeUrunlerFiyat[i].value)*adet);
                 eklenecekler.push(listeUrunlerAd[i].innerHTML);
                 fiyatlar.push(listeUrunlerFiyat[i].value);
             }
@@ -100,21 +104,18 @@ function sepeteEkle(){
         console.log(eklenecekler);
         console.log(fiyatlar);
 
-    //Eklenecek ürün adedi seçimi
-    let adet=document.getElementById("urunAdet").value;
-    console.log(adet);
 
     //Eklenecek ürün adedi kadar aynı işlemi tekrar et
     for(i=0;i<adet;i++)
     {
         let sepeteEklenecekUrun;
         //Eklenecekler listesindeki herbir ürün için liste elemanlarını oluştur.
-        for(i=0;i<eklenecekler.length;i++){
+        for(let j=0;j<eklenecekler.length;j++){
             sepeteEklenecekUrun=document.createElement("option");
             listeSepet.options.add(sepeteEklenecekUrun);
             //Her eklenen ürün için ad ve fiyat bilgilerini ilgili dizilerden çeker.
-            sepeteEklenecekUrun.text=eklenecekler[i];
-            sepeteEklenecekUrun.value=fiyatlar[i];
+            sepeteEklenecekUrun.text=eklenecekler[j];
+            sepeteEklenecekUrun.value=fiyatlar[j];
         }
         /*
         eklenecekler.forEach(element => {
