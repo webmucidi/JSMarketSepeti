@@ -21,6 +21,8 @@ let toplamTutar=0;
 
 //İndirim kodu için bir dizi veya değişken tanımlanabilir.
 const kod="PROMO10";
+let indirimTutari;
+let girilenKod;
 
 //Kategori seçiminde ürünlerin güncellenmesi için olay yakalayıcı tanımlandı.
 for(i=0;i<document.getElementsByName("kategori").length;i++)
@@ -79,6 +81,8 @@ function urunleriGetir(){
 }
 
 function sepeteEkle(){
+    
+
     //Sepete eklenecek ürünleri alacağımız checkbox inputlar alındı.
     const listeUrunlerFiyat=document.getElementsByName("urunler");
     const listeUrunlerAd=document.getElementsByClassName("urunler");
@@ -91,14 +95,33 @@ function sepeteEkle(){
         fiyatlar=[];
 
         //Checkbox inputlarının hepsi gezilerek seçili olanlar dizilere eklendi.
+        let secilenUrunCesidi=0;
         for(i=0;i<listeUrunlerFiyat.length;i++){
             if(listeUrunlerFiyat[i].checked){
                 //Eklenen adet kadar ürünün fiyatı hesaplandı.
                 toplamTutar+=(Number(listeUrunlerFiyat[i].value)*adet);
                 eklenecekler.push(listeUrunlerAd[i].innerHTML);
                 fiyatlar.push(listeUrunlerFiyat[i].value);
+                secilenUrunCesidi++;
+            }
+
+            //Sepete ekledikten sonra mevcut seçimleri temizler.
+            listeUrunlerFiyat[i].checked=false;
+        }
+        document.getElementById("sonuc").innerHTML=(secilenUrunCesidi*adet)+" adet ürün sepete eklendi.";
+
+        if(secilenUrunCesidi==0){
+            document.getElementById("sonuc").innerHTML="Hiçbir ürün seçimi yapmadınız!";
+        }
+
+
+        //Ekleme sırasında sepete ekli indirim kodu olup olmadığını denetler.
+            if(girilenKod!="PROMO10"){
+                if(toplamTutar>=50){
+                document.getElementById("txtIndirim").disabled=false;
             }
         }
+
 
         //Eklenecekleri ve fiyatlarını alabildik mi diye bir bakalım?
         console.log(eklenecekler);
@@ -140,6 +163,23 @@ function sepettenCikar(){
     listeSepet.options.remove(seciliIndeks);
     //Silinen ürünün fiyatını toplam fiyattan düşürür.
     toplamTutar=toplamTutar-silinecekUrununFiyati;
+
+    //Sepet tutarı 50 liranın altına düşerse indirim tutarını geri al ve indirim tutarını sıfırla
+    if(toplamTutar<50){
+        document.getElementById("txtIndirim").disabled=true;
+
+        if(girilenKod=="PROMO10"){
+            toplamTutar+=indirimTutari;
+            document.getElementById("sonuc").innerHTML=girilenKod+" kodu için uygulanan indirim geri alındı.";
+        }
+
+        indirimTutari=0;
+        girilenKod="";
+
+    }
+    else if(toplamTutar<0){
+        toplamTutar=0;
+    }
     document.getElementById("sepetTutar").innerHTML=toplamTutar+" TL";
 }
 
@@ -147,21 +187,27 @@ function sepettenCikar(){
 function sepetiBosalt(){
     document.querySelectorAll('#sepetMarket option').forEach(eleman => eleman.remove());
     toplamTutar=0;
+    girilenKod="";
+    indirimTutari=0;
     document.getElementById("sepetTutar").innerHTML=toplamTutar+" TL";
+    document.getElementById("txtIndirim").disabled=true;
+    document.getElementById("sonuc").innerHTML=" Sepet içeriği tamamen temizlendi.";
 
 }
 
 //İndirim kodunu kontrol ederek indirim uygulama
 function koduEkle(){
-    let girilenKod=document.getElementById("txtIndirim").value;
+    
+    girilenKod=document.getElementById("txtIndirim").value;
     if(girilenKod == kod)
     {
+        indirimTutari=10;
         if(toplamTutar>=50)
         {
-            toplamTutar=toplamTutar-10;
+            toplamTutar=toplamTutar-indirimTutari;
             
             document.getElementById("sepetTutar").innerHTML=toplamTutar+" TL";
-            document.getElementById("sonuc").innerHTML="İndirim uygulandı.";
+            document.getElementById("sonuc").innerHTML=girilenKod+" kodu için indirim uygulandı.";
             document.getElementById("txtIndirim").disabled=true;
             document.getElementById("txtIndirim").value="";
         }
@@ -174,5 +220,16 @@ function koduEkle(){
     }
 }
 
+//Eğer sepete ekli bir indirim kodu varsa çıkarır.
+function koduCikar(){
+    if(girilenKod=="PROMO10"){
+        toplamTutar+=indirimTutari;
+        document.getElementById("sonuc").innerHTML=girilenKod+" kodu sepetten çıkarıldı.";
+        document.getElementById("sepetTutar").innerHTML=toplamTutar+" TL";
+        document.getElementById("txtIndirim").disabled=false;
+    }
+
+    girilenKod="";
+}
 
 
