@@ -24,6 +24,8 @@ const kod="PROMO10";
 let indirimTutari;
 let girilenKod;
 
+let sonucBaslik=document.getElementById("sonuc");
+
 //Kategori seçiminde ürünlerin güncellenmesi için olay yakalayıcı tanımlandı.
 for(i=0;i<document.getElementsByName("kategori").length;i++)
 {
@@ -82,7 +84,6 @@ function urunleriGetir(){
 
 function sepeteEkle(){
     
-
     //Sepete eklenecek ürünleri alacağımız checkbox inputlar alındı.
     const listeUrunlerFiyat=document.getElementsByName("urunler");
     const listeUrunlerAd=document.getElementsByClassName("urunler");
@@ -129,8 +130,7 @@ function sepeteEkle(){
 
 
     //Eklenecek ürün adedi kadar aynı işlemi tekrar et
-    for(i=0;i<adet;i++)
-    {
+    for(i=0;i<adet;i++){
         let sepeteEklenecekUrun;
         //Eklenecekler listesindeki herbir ürün için liste elemanlarını oluştur.
         for(let j=0;j<eklenecekler.length;j++){
@@ -181,11 +181,18 @@ function sepettenCikar(){
         toplamTutar=0;
     }
     document.getElementById("sepetTutar").innerHTML=toplamTutar+" TL";
+    sonucBaslik.innerHTML="Seçilen ürün sepetten çıkarıldı.";
+    listeSepet.selectedIndex=1;
 }
 
 //Tüm ürünleri sözel döngü fonksiyonuyla gezerek
 function sepetiBosalt(){
-    document.querySelectorAll('#sepetMarket option').forEach(eleman => eleman.remove());
+    document.querySelectorAll('#sepetMarket option').forEach(eleman => {
+        if(eleman.value!=0){
+            eleman.remove();
+        } 
+        });
+        
     toplamTutar=0;
     girilenKod="";
     indirimTutari=0;
